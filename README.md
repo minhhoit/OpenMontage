@@ -143,6 +143,8 @@ That's it. The agent researches your topic with live web search, generates AI im
 make help               # Show all local commands
 make run                # Print the provider/runtime capability summary
 make preflight-full     # Print the full provider menu for debugging
+make documentary-kit    # Show Documentary Montage sources, BGM profiles, social templates
+make documentary-kit-assets
 make demo-list          # List zero-key demos
 make demo-one DEMO=world-in-numbers
 make demo               # Render all zero-key demos into projects/demos/renders/
@@ -250,6 +252,8 @@ OpenMontage picks between Remotion and HyperFrames at proposal time (locked as `
 - **Real-footage video:** the documentary montage pipeline builds a CLIP-searchable corpus from Archive.org, NASA, Wikimedia Commons, and optional free-key sources like Pexels and Unsplash, then cuts together actual motion footage into a finished video.
 
 If you want the second one, prompt for a **documentary montage**, **tone poem**, or **stock-footage collage**, and explicitly say **use real footage only**.
+
+For a richer zero-key/no-GPU workflow, use the [Documentary Montage Kit](docs/DOCUMENTARY_MONTAGE_KIT.md). It defines free footage source groups, local BGM folders, social templates, and script/brief folders so you can add your own footage, music, and story material without changing pipeline code.
 
 ---
 

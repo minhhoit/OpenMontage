@@ -31,8 +31,17 @@ projects/
 corpus/
 **/corpus/
 
-# User music library (personal royalty-free tracks — not part of repo)
-music_library/
+# User content libraries (personal footage, scripts, and royalty-free tracks)
+# Keep the folder guides, ignore user media/content by default.
+footage_library/*
+!footage_library/.gitkeep
+!footage_library/README.md
+music_library/*
+!music_library/.gitkeep
+!music_library/README.md
+scripts/documentary_montage/*
+!scripts/documentary_montage/.gitkeep
+!scripts/documentary_montage/README.md
 
 # Environment & credentials
 .env

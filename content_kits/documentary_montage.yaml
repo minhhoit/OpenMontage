@@ -1,0 +1,164 @@
+# Documentary Montage content kit.
+#
+# Data-only defaults for zero-key footage sources, local BGM folders, social
+# templates, and reusable brief presets.
+
+name: documentary_montage
+version: "0.1"
+default_pipeline: documentary-montage
+default_render_runtime: remotion
+
+local_libraries:
+  footage:
+    - path: footage_library/documentary
+      description: User-owned or royalty-free documentary footage.
+      accepted_extensions: [".mp4", ".mov", ".mkv", ".webm"]
+    - path: footage_library/broll
+      description: Reusable B-roll sorted by topic or mood.
+      accepted_extensions: [".mp4", ".mov", ".mkv", ".webm"]
+  music:
+    - path: music_library
+      description: Royalty-free BGM tracks. Prefer this before generated music.
+      accepted_extensions: [".mp3", ".wav", ".m4a", ".aac", ".flac"]
+  scripts:
+    - path: scripts/documentary_montage
+      description: User-authored briefs, narration scripts, shot lists, or act outlines.
+      accepted_extensions: [".md", ".txt", ".json", ".yaml", ".yml"]
+
+stock_sources:
+  zero_key:
+    - name: archive_org
+      best_for: vintage, public-domain, archival, educational, long-form source footage
+      notes: No API key. Strong for historical texture and older public-domain material.
+    - name: nasa
+      best_for: space, science, earth, technology, exploration
+      notes: No API key required; optional NASA_API_KEY can improve rate limits.
+    - name: wikimedia
+      best_for: public-interest, geography, history, landmarks, open-license media
+      notes: Verify per-file license before publication.
+    - name: coverr
+      best_for: modern lifestyle, city, nature, creator-friendly B-roll
+      notes: No key for basic usage.
+    - name: mixkit
+      best_for: polished modern stock, transitions, people, cities, business
+      notes: No key for basic usage.
+    - name: dareful
+      best_for: scenic 4K, landscape, nature, atmospheric B-roll
+      notes: No key. Smaller catalog but useful for cinematic inserts.
+    - name: nara
+      best_for: US government archive, history, war, institutions, civic footage
+      notes: No key. Good for archival documentary tone.
+    - name: loc
+      best_for: Library of Congress public-domain history and culture
+      notes: No key. Useful for older American media.
+    - name: pond5_pd
+      best_for: public-domain archival clips
+      notes: No key. Use as supplementary archival source.
+    - name: esa
+      best_for: European space, satellites, science, earth observation
+      notes: No key. Good complement to NASA.
+    - name: jaxa
+      best_for: Japanese space, launch, satellite, earth observation
+      notes: No key. Good complement to NASA/ESA.
+    - name: noaa
+      best_for: weather, ocean, climate, storms, environmental footage
+      notes: No key. Strong for climate and nature explainers.
+  free_key:
+    - name: pexels
+      env: PEXELS_API_KEY
+      best_for: modern lifestyle and polished vertical/landscape stock footage
+    - name: pixabay_video
+      env: PIXABAY_API_KEY
+      best_for: broad stock video, fantasy/AI-style community clips
+    - name: unsplash
+      env: UNSPLASH_ACCESS_KEY
+      best_for: still images for title cards, textures, and animated image scenes
+
+bgm_profiles:
+  elegiac:
+    search_terms: ["ambient piano", "slow drone", "rain", "memory", "minimal strings"]
+    default_volume: 0.16
+    duck_under_narration: true
+  urgent:
+    search_terms: ["pulse", "tension", "clock", "minimal percussion", "newsroom"]
+    default_volume: 0.18
+    duck_under_narration: true
+  reverent:
+    search_terms: ["choir pad", "slow strings", "sacred", "wide", "awe"]
+    default_volume: 0.15
+    duck_under_narration: true
+  wry:
+    search_terms: ["mid century", "light jazz", "plucked", "ironic", "archive"]
+    default_volume: 0.17
+    duck_under_narration: true
+  dreamlike:
+    search_terms: ["tape loop", "soft synth", "hazy", "sleep", "nostalgia"]
+    default_volume: 0.14
+    duck_under_narration: true
+
+social_templates:
+  tiktok_vertical:
+    media_profile: tiktok
+    aspect_ratio: "9:16"
+    duration_seconds: 45
+    slot_count: 12
+    caption_style: word_by_word
+    safe_zones: {top_px: 180, bottom_px: 280}
+    edit_shape: single-image expansion
+    recommended_tones: [urgent, dreamlike, wry]
+  instagram_reels:
+    media_profile: instagram_reels
+    aspect_ratio: "9:16"
+    duration_seconds: 45
+    slot_count: 12
+    caption_style: phrase
+    safe_zones: {top_px: 160, bottom_px: 260}
+    edit_shape: before/after
+    recommended_tones: [elegiac, urgent, dreamlike]
+  youtube_shorts:
+    media_profile: youtube_shorts
+    aspect_ratio: "9:16"
+    duration_seconds: 60
+    slot_count: 16
+    caption_style: word_by_word
+    safe_zones: {top_px: 160, bottom_px: 300}
+    edit_shape: before/after
+    recommended_tones: [urgent, wry, reverent]
+  instagram_square:
+    media_profile: instagram_feed
+    aspect_ratio: "1:1"
+    duration_seconds: 45
+    slot_count: 10
+    caption_style: phrase
+    safe_zones: {top_px: 96, bottom_px: 128}
+    edit_shape: list/catalogue
+    recommended_tones: [elegiac, reverent, wry]
+  youtube_landscape:
+    media_profile: youtube_landscape
+    aspect_ratio: "16:9"
+    duration_seconds: 90
+    slot_count: 24
+    caption_style: phrase
+    safe_zones: {top_px: 96, bottom_px: 140}
+    edit_shape: three-act
+    recommended_tones: [elegiac, reverent, wry, urgent]
+
+brief_presets:
+  social_mood_piece:
+    target_template: instagram_reels
+    narration: none
+    generated_clips_allowed: false
+    source_mix: [coverr, mixkit, archive_org, wikimedia, nasa]
+    end_tag_mode: overlay
+  archival_essay_short:
+    target_template: youtube_landscape
+    narration: piper
+    generated_clips_allowed: false
+    source_mix: [archive_org, nara, loc, pond5_pd, wikimedia]
+    end_tag_mode: overlay
+  vertical_news_poem:
+    target_template: tiktok_vertical
+    narration: piper
+    generated_clips_allowed: false
+    source_mix: [pexels, pixabay_video, coverr, mixkit, wikimedia]
+    end_tag_mode: overlay

@@ -47,6 +47,25 @@ The two approaches are not mutually exclusive.
 The output is an `asset_manifest` mapping every slot to exactly one
 clip with full provenance.
 
+## Content Kit Routing
+
+Before running source search, inspect the Documentary Montage kit:
+
+```bash
+python -m lib.documentary_kit --assets
+```
+
+Use it to:
+
+- Prefer local user footage under `footage_library/` when it matches a slot.
+- Prefer zero-key sources when the brief says zero API keys or no cloud
+  generation.
+- Prefer `music_library/` BGM before any generated or paid music source.
+- Map `target_template`/`target_platform` to orientation and duration filters.
+
+If a requested local folder is missing or empty, continue with stock sources
+but record the gap in `asset_manifest.metadata.search_stats`.
+
 ## Prerequisites
 
 | Layer | Resource | Purpose |
@@ -54,6 +73,7 @@ clip with full provenance.
 | Schema | `schemas/artifacts/asset_manifest.schema.json` | Artifact validation |
 | Prior artifact | `state.artifacts["scene_plan"]["scene_plan"]` | Slot descriptions + queries + preferred_sources |
 | Prior artifact | `state.artifacts["idea"]["brief"]` | `era_mix`, `sources_allowed`, `music_plan` |
+| Kit | `content_kits/documentary_montage.yaml` | Zero-key source groups and local library paths |
 | Tool (fast path) | `direct_clip_search` | Lightweight multi-provider search + download |
 | Tool (standard path) | `corpus_builder` | Populates the retrieval index with CLIP embeddings |
 | Tool (standard path) | `clip_search` | Ranks clips against slot descriptions |

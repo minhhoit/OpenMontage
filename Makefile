@@ -1,4 +1,4 @@
-.PHONY: help setup install install-dev install-gpu run doctor test test-contracts lint clean preflight preflight-full demo demo-one demo-list remotion-studio remotion-render remotion-upgrade hyperframes-doctor hyperframes-warm
+.PHONY: help setup install install-dev install-gpu run doctor test test-contracts lint clean preflight preflight-full demo demo-one demo-list documentary-kit documentary-kit-assets remotion-studio remotion-render remotion-upgrade hyperframes-doctor hyperframes-warm
 
 PYTHON ?= python
 DEMO ?=
@@ -20,6 +20,9 @@ help:
 	@echo "  make demo-list          List zero-key demo videos"
 	@echo "  make demo               Render all zero-key demo videos"
 	@echo "  make demo-one DEMO=name Render one zero-key demo"
+	@echo "  make documentary-kit    Show Documentary Montage source/BGM/social templates"
+	@echo "  make documentary-kit-assets"
+	@echo "                         Check local footage, BGM, and script library counts"
 	@echo "  make remotion-studio    Open the Remotion Studio dev UI"
 	@echo "  make remotion-render    Render the default Remotion composition"
 	@echo ""
@@ -122,6 +125,12 @@ demo-one:
 
 demo-list:
 	@$(PYTHON) render_demo.py --list
+
+documentary-kit:
+	@$(PYTHON) -m lib.documentary_kit
+
+documentary-kit-assets:
+	@$(PYTHON) -m lib.documentary_kit --assets
 
 remotion-studio:
 	cd remotion-composer && npm run start

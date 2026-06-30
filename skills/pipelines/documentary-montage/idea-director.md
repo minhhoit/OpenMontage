@@ -18,10 +18,30 @@ Per AGENT_GUIDE.md → "Present Both Composition Runtimes (HARD RULE)": do NOT s
 | Layer | Resource | Purpose |
 |-------|----------|---------|
 | Schema | `schemas/artifacts/brief.schema.json` | Artifact validation |
+| Kit | `content_kits/documentary_montage.yaml` | Source/BGM/social template defaults |
 | User input | Conversation history | The raw ask |
 | Meta | `skills/meta/reviewer.md` | Self-review pass |
 
 ## Process
+
+### 0. Load The Documentary Kit
+
+Before choosing sources, BGM, duration, or platform shape, inspect
+`content_kits/documentary_montage.yaml` or run:
+
+```bash
+python -m lib.documentary_kit --assets
+```
+
+Use the kit to resolve:
+
+- `social_templates` -> target platform, duration, slot count, caption style,
+  and safe zones.
+- `stock_sources.zero_key` -> default source mix when the user wants no API keys.
+- `local_libraries.music` + `bgm_profiles` -> local BGM candidates by tone.
+- `local_libraries.scripts` -> user-authored briefs or narration drafts.
+
+Do not invent a source mix from memory when the kit names one.
 
 ### 1. Extract The Thematic Question
 
